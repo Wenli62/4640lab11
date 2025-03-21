@@ -10,5 +10,9 @@
     ansible_user: "{{ 'rocky' if 'server_role_redis_server' in group_names else 'ubuntu' }}"
   
   roles:
+  
+    - role: rocky
+      when: "'server_role_redis_server' in group_names and ansible_facts['distribution'] == 'Rocky'"
+
     - role: frontend
       when: "'server_role_frontend_server' in group_names and ansible_facts['distribution'] == 'Ubuntu'"
