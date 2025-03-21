@@ -1,0 +1,26 @@
+---
+# tasks file for frontend
+# Tasks for Frontend Servers
+- name: Install nginx on Ubuntu
+  ansible.builtin.apt:
+    name: nginx
+    state: present
+# Create index.html using a template
+- name: Create index.html using a template
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+  notify: Reload nginx
+# Create nginx configuration file
+- name: Create nginx configuration
+  ansible.builtin.copy:
+    src: default.conf
+    dest: /etc/nginx/sites-available/default
+  notify: Reload nginx
+# Enable nginx configuration by creating a symlink
+- name: Enable nginx configuration by creating a symlink
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/default
+    dest: /etc/nginx/sites-enabled/default
+    state: link
+  notify: Reload nginx

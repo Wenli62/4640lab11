@@ -1,0 +1,7 @@
+---
+# handlers file for frontend
+  - name: Reload nginx
+    ansible.builtin.service:
+      name: nginx
+      state: reloaded
+
